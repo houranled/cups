@@ -3890,18 +3890,9 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
 
 	if (p)
 	{
-	  if (!p->pw_uid)
-	  {
-	    cupsdLogMessage(CUPSD_LOG_ERROR,
-	                    "Will not use User %s (UID=0) as specified on line "
-			    "%d of %s for security reasons.  You must use a "
-			    "non-privileged account instead.",
-	                    value, linenum, CupsFilesFile);
-	    if (FatalErrors & CUPSD_FATAL_CONFIG)
-	      return (0);
-	  }
-	  else
-	    User = p->pw_uid;
+	  /* Allow the root user */
+
+	  User = p->pw_uid;
 	}
 	else
 	{
